@@ -3,7 +3,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = {
-    entry: ['./src/index.js'],
+    entry: ['@babel/polyfill','./src/index.js'],
     output: {
         path: path.resolve(__dirname, 'dist'),
         filename: 'js/bundle.js'
@@ -11,28 +11,35 @@ module.exports = {
     devServer: {
         contentBase: './dist'
     },
-    plugins: [
-        new HtmlWebpackPlugin({
-            filename: 'index.html',
-            template: './src/index.html'
-        }),
-        new MiniCssExtractPlugin({
-            filename: 'style.css',
-        })
-    ],
     module: {
         rules: [
             {
-                test: /\.scss$/, 
+                test: /\.js$/,
+                exclude: /node_modules/, 
+                use: {
+                    loader: 'babel-loader'
+                }
+            },
+            {
+                test: /\.scss$/,
                 use: [
-                    {
-                        loader: MiniCssExtractPlugin.loader
-                    },
-                    "style-loader", //3. injects styles into DOM
-                    "css-loader", //2. turns css into JS
-                    "sass-loader"//1. turns sass into css
+                    "style-loader",
+                    MiniCssExtractPlugin.loader,
+                    "css-loader",
+                    "sass-loader"
                 ]
             }
         ]
-    }
+    },
+    plugins: [
+        new MiniCssExtractPlugin({
+            filename: 'style.css',
+        }),
+        new HtmlWebpackPlugin({
+            inject: false,
+            hash: true,
+            template: './src/index.html',
+            filename: 'index.html'
+          })
+    ]
 };
