@@ -53,7 +53,7 @@ elements.searchForm.addEventListener('submit', e => {
 /**
  * Recipe Controller
  */
-const controlRecipe = async () => {
+/*const controlRecipe = async () => {
     //retrieve ID from the url
     const id = window.location.hash.replace('#', '');
     console.log(id);
@@ -78,7 +78,7 @@ const controlRecipe = async () => {
             alert('Error processing the recipe');
         }
     }
-};
+};*/
 
 //window.addEventListener('hashchange', controlRecipe);
 //window.addEventListener('load', controlRecipe);
