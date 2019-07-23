@@ -133,7 +133,7 @@
     flex-direction: column;
     overflow: auto;
 
-    /*
+    
     .loader{
       font-size: 100px;
       color: $icon-color;
@@ -145,7 +145,7 @@
         animation: rotate 1.25s infinite linear;
       }
     }
-    */
+    
     
     .recipe-results{
       list-style: none;
@@ -313,7 +313,6 @@
         @include ease();
       }
     }
-
   }
 
   .ingredient-info{
@@ -345,8 +344,10 @@
     
     .ingredient-btn{
       text-align: center;
+      position: relative;
+      top: -10px;
 
-      .add-to-shopping{
+      .add-to-shopping, .cooking-directions{
         padding: 0 10px;
         height: 45px;
         font-size: 20px;
@@ -360,6 +361,11 @@
   
         &:hover{
           transform: scale(1.05);
+        }
+
+        .cooking-link{
+          text-decoration: none;
+          color: $font-color;
         }
       }
     }
