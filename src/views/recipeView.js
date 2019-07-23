@@ -1,8 +1,11 @@
-import { elements, renderLoader, clearLoader } from './base';
+import { elements } from './base';
 
+export const clearRecipe = () => {
+    elements.recipe.innerHTML = '';
+};
 const createIngredient = ingredient => `
     <li class="ingredient">
-        <p><i class="fas fa-check"></i>${ingredient.ingredient}</p>
+        <p><i class="fas fa-check"></i> ${ingredient}</p>
     </li>
 `;
 export const renderRecipe = recipe  => {
@@ -44,7 +47,7 @@ export const renderRecipe = recipe  => {
 
         <div class="ingredient-info">
             <ul class="ingredient-list">
-            ${recipe.ingredients.map(el => createIngredient(el).join(''))}
+            ${recipe.ingredients.map(el => createIngredient(el)).join('')}
                 
             </ul>
             <div class="ingredient-btn">
