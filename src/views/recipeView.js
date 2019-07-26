@@ -1,11 +1,30 @@
 import { elements } from './base';
+import { Fraction } from 'fractional';
 
 export const clearRecipe = () => {
     elements.recipe.innerHTML = '';
 };
+
+const formatCount = count => {
+    if (count) {
+        const [int, dec] = count.toString().split('.').map(el => parseInt(el, 10));
+
+        if(!dec) return count;
+
+        if(int === 0){
+            const fraction = new Fraction(count);
+            return `${fraction.numerator}/${fraction.denominator}`;
+        } else {
+            const fraction = new Fraction(count - int);
+            return `${int} ${fraction.numerator}/${fraction.denominator}`;
+        }
+    }
+    return '?';
+}
+
 const createIngredient = ingredient => `
     <li class="ingredient">
-        <p><i class="fas fa-check"></i> ${ingredient}</p>
+        <p><i class="fas fa-check"></i> ${formatCount(ingredient.count)} ${ingredient.unit} ${ingredient.ingredient}</p>
     </li>
 `;
 export const renderRecipe = recipe  => {

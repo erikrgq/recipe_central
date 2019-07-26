@@ -18,7 +18,6 @@ const state = {};
 /**
  * Search Controller
  */
-/*
 const controlSearch = async () => {
     //1. get query from the View
     const query = searchView.getInput(); //TODO
@@ -40,6 +39,7 @@ const controlSearch = async () => {
             //5. render results on UI
             clearLoader();
             searchView.renderResults(state.search.result);
+            
         } catch (error) {
             alert('Something went wrong with the search');
             clearLoader();
@@ -55,7 +55,7 @@ elements.searchForm.addEventListener('submit', e => {
 /**
  * Recipe Controller
  */
-/*const controlRecipe = async () => {
+const controlRecipe = async () => {
     //retrieve ID from the url
     const id = window.location.hash.replace('#', '');
     console.log(id);
@@ -65,12 +65,16 @@ elements.searchForm.addEventListener('submit', e => {
         recipeView.clearRecipe();
         renderLoader(elements.recipe);
 
+        //highlight selected recipe result
+        if(state.search) searchView.highlightSelected(id);
+
         //create new recipe object
         state.recipe = new Recipe(id);
 
         try {
             //get recipe data and parse ingredients
             await state.recipe.getRecipe();
+            state.recipe.parseIngredients();
 
             //state.recipe.parseIngredients();
 
@@ -87,7 +91,7 @@ elements.searchForm.addEventListener('submit', e => {
         }
     }
 };
-*/
+
 //window.addEventListener('hashchange', controlRecipe);
 //window.addEventListener('load', controlRecipe);
 

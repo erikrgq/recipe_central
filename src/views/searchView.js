@@ -6,10 +6,20 @@ export const getInput = () => elements.searchInput.value;
 export const clearInput = () => {
     elements.searchInput.value = '';
 };
+
 //We want this to clear the html on box 1 after another search is inputed
 export const clearResults = () => {
     elements.searchResList.innerHTML = '';
 };
+
+export const highlightSelected = id => {
+    const resultsArr = Array.from(document.querySelectorAll('.result-link'));
+    resultsArr.forEach(el => {
+        el.classList.remove('active');
+    });
+    document.querySelector(`a[href="#${id}"]`).classList.add('active');
+};
+
 //We want shorter titles to be displayed
 const  limitRecipeTitle = (title, limit = 17) => {
     const newTitle = [];
