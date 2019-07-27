@@ -24,7 +24,7 @@ const formatCount = count => {
 
 const createIngredient = ingredient => `
     <li class="ingredient">
-        <p><i class="fas fa-check"></i> ${formatCount(ingredient.count)} ${ingredient.unit} ${ingredient.ingredient}</p>
+        <p class="recipe-count"><i class="fas fa-check"></i> ${formatCount(ingredient.count)} ${ingredient.unit} ${ingredient.ingredient}</p>
     </li>
 `;
 export const renderRecipe = recipe  => {
@@ -41,20 +41,14 @@ export const renderRecipe = recipe  => {
                 <span>
                     <i class="fas fa-users"></i>
                 </span>
-                <h4>${recipe.servings}</h3>
-                <button class="less-servings">
-                    <i class="fas fa-minus"></i>
-                </button>
-                <button class="more-servings">
-                    <i class="fas fa-plus"></i>
-                </button>
+                <h4 class="recipe-servings">${recipe.servings}</h4>
             </div>
 
             <div class="cook-time">
                 <span>
                     <i class="fas fa-clock"></i>
                 </span>
-                    <h4>${recipe.time}</h3>
+                    <h4>${recipe.time}</h4>
             </div>
 
             <div class="like-basket">
@@ -73,11 +67,6 @@ export const renderRecipe = recipe  => {
                 <button class="add-to-shopping">
                     <i class="fas fa-list-ol"></i> Add to shopping list
                 </button>
-                <button class="cooking-directions">
-              <a href="${recipe.url}" class="cooking-link" target="_blank">
-                  <i class="fas fa-book-open"></i> Cooking Instructions
-              </a>
-          </button>
             </div>
         </div>
     `;

@@ -5,6 +5,8 @@ import { elements, renderLoader, clearLoader } from './views/base';
 import * as searchView from './views/searchView';
 import * as recipeView from './views/recipeView';
 import Recipe from './models/Recipe';
+import List from './models/List';
+import * as listView from './views/listView';
 
 /**Global state of the app
  * -Search Object
@@ -20,8 +22,7 @@ const state = {};
  */
 const controlSearch = async () => {
     //1. get query from the View
-    const query = searchView.getInput(); //TODO
-    console.log(query);
+    const query = searchView.getInput(); 
 
     if(query) {
         //2. New search object and add to state
@@ -58,7 +59,6 @@ elements.searchForm.addEventListener('submit', e => {
 const controlRecipe = async () => {
     //retrieve ID from the url
     const id = window.location.hash.replace('#', '');
-    console.log(id);
 
     if(id){
         //prepare the UI for changes
@@ -75,8 +75,6 @@ const controlRecipe = async () => {
             //get recipe data and parse ingredients
             await state.recipe.getRecipe();
             state.recipe.parseIngredients();
-
-            //state.recipe.parseIngredients();
 
             //calculate servings and time/
             state.recipe.calcTime();
@@ -96,3 +94,24 @@ const controlRecipe = async () => {
 //window.addEventListener('load', controlRecipe);
 
 ['hashchange', 'load'].forEach(event => window.addEventListener(event, controlRecipe));
+
+/**
+ * List controller
+ */
+const controlList = () => {
+    //create a new list if there is none yet
+    if(!state.list) state.list = new List();
+
+    //add each ingredient to the list and UI
+    state.recipe.ingredients.forEach(el => {
+        const item = state.list.addItem(el.count, el.unit, el.ingredient);
+        listView.renderItem(item);
+    });
+};
+
+//event listener on th recipe object
+elements.recipe.addEventListener('click', e => {
+    if (e.target.matches('.add-to-shopping, add-to-shopping *')) {
+        controlList();
+    }
+});
