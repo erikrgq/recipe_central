@@ -12,18 +12,21 @@ export const renderItem = item => {
                 <i class="fas fa-minus-circle"></i>
             </button>
         </li>
-
-        <div class="shop-btn">
-            <h4>How to cook it</h4>
-            <p>This recipe was designed and tested by closet cooking please check out their directions below.</p>
-            <button class="cooking-directions">
-                <a href="${recipe.url}" class="cooking-link" target="_blank">
-                    <i class="fas fa-book-open"></i> Cooking Instructions
-                </a>
-            </button>
-        </div>
     `;
     elements.shopping.insertAdjacentHTML('beforeend', markup);
+};
+
+export const renderShopBtn = item => {
+    const markup2 = `
+        <h4>How to cook it</h4>
+        <p>This recipe was designed and tested by ${item.publisher} please check out their directions below.</p>
+        <button class="cooking-directions">
+            <a href="${item.url}" class="cooking-link" target="_blank">
+                <i class="fas fa-book-open"></i> Cooking Instructions
+            </a>
+        </button>
+    `;
+    elements.shoppingBtn.insertAdjacentHTML('beforeend', markup2);
 };
 
 export const deleteItem = id => {
