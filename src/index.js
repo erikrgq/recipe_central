@@ -20,7 +20,7 @@ const state = {};
 /**
  * Search Controller
  */
-/*const controlSearch = async () => {
+const controlSearch = async () => {
     //1. get query from the View
     const query = searchView.getInput(); 
 
@@ -46,7 +46,7 @@ const state = {};
             clearLoader();
         }
     }
-};*/
+};
 
 elements.searchForm.addEventListener('submit', e => {
     e.preventDefault();
@@ -56,7 +56,7 @@ elements.searchForm.addEventListener('submit', e => {
 /**
  * Recipe Controller
  */
-/*const controlRecipe = async () => {
+const controlRecipe = async () => {
     //retrieve ID from the url
     const id = window.location.hash.replace('#', '');
 
@@ -88,7 +88,7 @@ elements.searchForm.addEventListener('submit', e => {
             alert('Error processing the recipe');
         }
     }
-};*/
+};
 
 //window.addEventListener('hashchange', controlRecipe);
 //window.addEventListener('load', controlRecipe);
@@ -104,9 +104,8 @@ const controlList = () => {
 
     //add each ingredient to the list and UI
     state.recipe.ingredients.forEach(el => {
-        const item = state.list.addItem(el.count, el.unit, el.ingredient, el.publisher, el.url);
+        const item = state.list.addItem(el.count, el.unit, el.ingredient);
         listView.renderItem(item);
-        listView.renderShopBtn(item);
     });
 };
 
@@ -114,5 +113,6 @@ const controlList = () => {
 elements.recipe.addEventListener('click', e => {
     if (e.target.matches('.add-to-shopping, add-to-shopping *')) {
         controlList();
+        listView.renderShopBtn(state.recipe);
     }
 });

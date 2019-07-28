@@ -1,5 +1,10 @@
 import { elements } from './base';
 
+export const clearShopList = () => {
+    elements.shopping.innerHTML = '';
+    elements.shoppingBtn.innerHTML = '';
+};
+
 export const renderItem = item => {
     const markup = `
         <li class="shop-item" data-itemid=${item.id}>
@@ -16,12 +21,12 @@ export const renderItem = item => {
     elements.shopping.insertAdjacentHTML('beforeend', markup);
 };
 
-export const renderShopBtn = item => {
+export const renderShopBtn = recipe => {
     const markup2 = `
         <h4>How to cook it</h4>
-        <p>This recipe was designed and tested by ${item.publisher} please check out their directions below.</p>
+        <p>This recipe was designed and tested by ${recipe.publisher} please check out their directions below.</p>
         <button class="cooking-directions">
-            <a href="${item.url}" class="cooking-link" target="_blank">
+            <a href="${recipe.url}" class="cooking-link" target="_blank">
                 <i class="fas fa-book-open"></i> Cooking Instructions
             </a>
         </button>
