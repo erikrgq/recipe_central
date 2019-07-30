@@ -27,7 +27,7 @@ const createIngredient = ingredient => `
         <p class="recipe-count"><i class="fas fa-check"></i> ${formatCount(ingredient.count)} ${ingredient.unit} ${ingredient.ingredient}</p>
     </li>
 `;
-export const renderRecipe = recipe  => {
+export const renderRecipe = (recipe, isLiked)  => {
     const markup = `
         <figure class="recipe-figure">
             <img src="${recipe.img}" alt="${recipe.title}" class="recipe-img">
@@ -52,7 +52,7 @@ export const renderRecipe = recipe  => {
             </div>
 
             <div class="like-basket">
-                <span>
+                <span  id="like-btn" style="${isLiked ? '' : '#FFB904'};">
                     <i class="fas fa-shopping-basket"></i>
                 </span>
             </div>
