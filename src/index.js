@@ -22,7 +22,7 @@ const state = {};
 /**
  * Search Controller
  */
-const controlSearch = async () => {
+/*const controlSearch = async () => {
     //1. get query from the View
     const query = searchView.getInput(); 
 
@@ -48,7 +48,7 @@ const controlSearch = async () => {
             clearLoader();
         }
     }
-};
+};*/
 
 elements.searchForm.addEventListener('submit', e => {
     e.preventDefault();
@@ -58,7 +58,7 @@ elements.searchForm.addEventListener('submit', e => {
 /**
  * Recipe Controller
  */
-const controlRecipe = async () => {
+/*const controlRecipe = async () => {
     //retrieve ID from the url
     const id = window.location.hash.replace('#', '');
 
@@ -91,7 +91,7 @@ const controlRecipe = async () => {
             clearLoader();
         }
     }
-};
+};*/
 
 //window.addEventListener('hashchange', controlRecipe);
 //window.addEventListener('load', controlRecipe);
@@ -137,7 +137,7 @@ elements.shopping.addEventListener('click', e =>{
 /**
  * Likes controller
  */
-//testing
+//testing***************************************************
 state.likes = new Likes();
 const controlLike = () => {
     //create a likes object if not yet there
@@ -159,7 +159,7 @@ const controlLike = () => {
         likesView.toggleLikeBtn(true);
 
         //add like to UI list
-        console.log(state.likes);
+        likesView.renderLike(newLike);
 
     //user has liked the current recipe    
     } else {
@@ -170,9 +170,10 @@ const controlLike = () => {
         likesView.toggleLikeBtn(false);
 
         //remove like from UI list 
-        console.log(state.likes);
+        likesView.deleteLike(currentID);
 
     }
+    likesView.toggleLikesMenu(state.likes.getNumLikes());
 
 };
 

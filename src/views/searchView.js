@@ -17,11 +17,11 @@ export const highlightSelected = id => {
     resultsArr.forEach(el => {
         el.classList.remove('active');
     });
-    document.querySelector(`a[href="#${id}"]`).classList.add('active');
+    document.querySelector(`.result-link[href="#${id}"]`).classList.add('active');
 };
 
 //We want shorter titles to be displayed
-const  limitRecipeTitle = (title, limit = 17) => {
+export const  limitRecipeTitle = (title, limit = 17) => {
     const newTitle = [];
 
     if(title.length > limit){
