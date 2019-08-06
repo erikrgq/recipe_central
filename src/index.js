@@ -22,7 +22,7 @@ const state = {};
 /**
  * Search Controller
  */
-/*const controlSearch = async () => {
+const controlSearch = async () => {
     //1. get query from the View
     const query = searchView.getInput(); 
 
@@ -48,7 +48,7 @@ const state = {};
             clearLoader();
         }
     }
-};*/
+};
 
 elements.searchForm.addEventListener('submit', e => {
     e.preventDefault();
@@ -58,7 +58,7 @@ elements.searchForm.addEventListener('submit', e => {
 /**
  * Recipe Controller
  */
-/*const controlRecipe = async () => {
+const controlRecipe = async () => {
     //retrieve ID from the url
     const id = window.location.hash.replace('#', '');
 
@@ -84,14 +84,14 @@ elements.searchForm.addEventListener('submit', e => {
 
             //render recipe
             clearLoader();
-            recipeView.renderRecipe(state.recipe, state.likes.isLiked(id));
+            recipeView.renderRecipe(state.recipe);
 
         } catch (error){
+            console.log(error);
             alert('Error processing the recipe');
-            clearLoader();
         }
     }
-};*/
+};
 
 //window.addEventListener('hashchange', controlRecipe);
 //window.addEventListener('load', controlRecipe);
@@ -137,8 +137,6 @@ elements.shopping.addEventListener('click', e =>{
 /**
  * Likes controller
  */
-//testing***************************************************
-state.likes = new Likes();
 const controlLike = () => {
     //create a likes object if not yet there
     if(!state.likes) state.likes = new Likes();
@@ -177,8 +175,21 @@ const controlLike = () => {
 
 };
 
+//Restore the liked recipes when the page reloads
+window.addEventListener('load', () => {
+    state.likes = new Likes();
+    
+    //restore the likes
+    state.likes.readStorage();
+    
+    //toggle the like menu button 
+    likesView.toggleLikesMenu(state.likes.getNumLikes());
 
-//event listener on th recipe object
+    //render the likes
+    state.likes.likes.forEach(like => likesView.renderLike(like));
+});
+
+//event listener on the recipe object
 elements.recipe.addEventListener('click', e => {
     if (e.target.matches('.add-to-shopping, add-to-shopping *')) {
         //add to ingredient shoppiog list
