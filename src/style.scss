@@ -26,21 +26,62 @@
     }
   }
   
+  //***********************//
+  //small desktops and laptops
+  $large: 1283px;
+  //tablets and small laptops
+  $medium: 1075px;
+  //large phones
+  $small: 480px;
+
+  @mixin large {
+    @media only screen and (max-width: $large) {
+      @content;
+    }
+  }
+  @mixin large-min {
+    @media only screen and (min-width: $medium) {
+      @content;
+    }
+  }
+  @mixin medium {
+    @media only screen and (max-width: $medium){
+      @content;
+    }
+  }
+  @mixin small {
+    @media only screen and(max-width: $small) {
+      @content; 
+    }
+  }
+
+  //body styling
   body{
     display: grid;
     grid-template-areas: "a a a"
                          "b b b"
                          "c c c";
     grid-template-columns: repeat(3, auto);
-    grid-template-rows: 75px 725px 75px;
+    grid-template-rows: 75px 900px 75px;
     width: 100%;
     height: 100vh;
     margin: auto;
     padding: 50px;
     background: $gradient-color;
+    background-position: center;
+    background-attachment: fixed;
     box-sizing: border-box;
     font-family: sans-serif;
     color: $font-color;
+    @include medium(){
+      grid-template-areas: "a a"
+                         "b b"
+                         "c c";
+      grid-template-rows: 175px 900px 75px;
+    }
+    @include small(){
+      padding: 0;
+    }
   }
   
   #header{
@@ -70,6 +111,9 @@
         @include box-shadow();
         border: none;
         outline: none;
+        @include large(){
+          width: 200px;
+        }
 
         &:hover{
           transform: scale(1.02);
@@ -95,6 +139,10 @@
         font-family: $title-font;
         color: $font-color;
         cursor: pointer;
+        @include large() {
+            width: 100px;
+        }
+        
 
         &:hover{
           transform: scale(1.05);
@@ -189,10 +237,25 @@
     display: flex;
     flex-direction: start;
     align-items: center;
+    @include medium(){
+      display: grid;
+      width: 100%;
+      grid-template-areas: "search recipe"
+                            "search list";
+      grid-template-columns: 200px auto;
+      grid-template-rows: repeat(2, 1fr);
+    }
+    @include small(){
+      grid-template-columns: 125px auto;
+      grid-template-rows: repeat(2, 1fr);
+    }
+    
     
     .boxes{
-      width: 100%;
-      height: 100%;
+      @include large-min(){
+        width: 100%;
+        height: 100%;
+      }
       
       &:nth-child(even){
         background: $body-color;
@@ -226,6 +289,11 @@
     display: flex;
     flex-direction: column;
     overflow: auto;
+    @include medium(){
+      grid-area: search;
+      height: 100%;
+      width: 100%;
+    }
     
     .recipe-results{
       list-style: none;
@@ -249,6 +317,12 @@
           overflow: hidden;
           position: relative;
           backface-visibility: hidden;
+          @include medium(){
+            flex: 0 0 3.5rem;
+          }
+          @include small(){
+            display: none;
+          }
 
           &::before{
             content: '';
@@ -270,6 +344,10 @@
             height: 5.5rem;
             object-fit: cover;
             transition: all .3s;
+            @include medium(){
+              width: 3.5rem;
+              height: 3.5rem;
+            }
   
             &[alt]{
               font-size: 10px;
@@ -280,6 +358,9 @@
         .result-title{
           font-family: sans-serif;
           color: $font-color;
+          @include medium(){
+            font-size: 10px;
+          }
 
           h3{
             margin-bottom: 5px;
@@ -295,15 +376,17 @@
 //recipe results styling
 .box-2{
   display: grid;
-  grid-template-areas: 'e'
-                       'f'
-                       'g';
-  grid-template-rows: 350px 100px 175px;                     
-
+  grid-template-rows: 350px 175px 375px;
+  
+  @include medium(){
+    grid-area: recipe;
+    grid-template-rows: none;
+    grid-template-columns: 300px 100px auto;
+    height: 450px;
+    width: 100%;
+  }
 
   .recipe-figure{
-    grid-area: e;
-    height: 350px;
     display: block;
     position: relative;
     backface-visibility: hidden;
@@ -316,6 +399,19 @@
       background-position: center;
       transition: all .3s;
       opacity: 0.8;
+      @include medium(){
+        margin-top: 50px;
+        padding: 0 10px;
+        height: 275px;
+        width: 275px;
+        border-radius: 50%;
+      }
+      @include small(){
+        height: 225px;
+        width: 225px;
+        margin-top: 100px;
+        margin-left: 25px;
+      }
 
       &[alt]{
         font-size: 10px;
@@ -330,21 +426,39 @@
       font-family: sans-serif;
       font-size: 30px;
       opacity: 0.8;
+      @include medium(){
+        position: relative;
+        top: -50px;
+        padding: 5px 0 0 0;
+      }
+      @include small(){
+        font-size: 20px;
+      }
       
       span{
         background-color: $icon-color;
         padding: 5px 0 0 0;
+
       }
     }
   }
   .recipe-info{
-    grid-area: f;
+    height: 100%;
     display: flex;
     align-items: center;
     align-content: center;
     justify-content: space-between;
     padding: 20px 35px;
     font-size: 15px;
+    @include medium(){
+      font-size: 1rem;
+      display: grid;
+      grid-template-rows: repeat(3, auto);
+      text-align: center;
+      align-content: space-around;
+      justify-content: space-evenly;
+      height: 450px;
+    }
   }
   .servings{
     display: inline-flex;
@@ -352,44 +466,54 @@
     padding: 5px;
     border-radius: 5px;
     background-color: $header-footer-color;
+    @include medium(){
+      flex: 0 0 5rem;
+      display: flex;
+      flex-direction: column;
+    }
+    @include small(){
+      flex: 0 0 3rem;
+    }
 
     h4{
       margin: 0 5px;
+      @include small(){
+        font-size: 12.5px;
+      }
     }
     i{
       font-size: 20px;
       color: $icon-color;
     }
-    button{
-      margin: 0 1px;
-      height: 20px;
-      width: 20px;
-      border-radius: 50%;
-      border: none;
-      background: $icon-color;
-      cursor: pointer;
-
-      i{  
-        font-size: 15px;
-        color: $font-color;
-      }
-    }
   }
+
   .cook-time{
     display: inline-flex;
     flex: 0 0 8rem;
     padding: 5px;
     border-radius: 5px;
     background-color: $header-footer-color;
+    @include medium(){
+      flex: 0 0 5rem;
+      display: flex;
+      flex-direction: column;
+    }
+    @include small(){
+      flex: 0 0 3rem;
+    }
 
     h4{
       margin: 0 5px;
+      @include small(){
+        font-size: 12.5px;
+      }
     }
     i{
       font-size: 20px;
       color: $icon-color;
     }
   }
+
   .like-basket{
 
     #like-btn{
@@ -404,17 +528,24 @@
   }
 
   .ingredient-info{
-    grid-area: g;
     padding: 0 10px;
+    @include medium(){
+      height: 450px;
+    }
 
     .ingredient-list{
       list-style-type: none;
-      height: 225px;
+      height: 70%;
       display: flex;
-      flex-direction: column;
       flex-wrap: wrap;
+      flex-direction: column;
       padding: 0 5px;
       overflow: hidden;
+      @include large(){
+        flex-wrap: nowrap;
+        overflow: auto;
+        padding-top: 20px;
+      }
   
       .ingredient {
         line-height: 20px;
@@ -422,6 +553,10 @@
   
         p{
           width: 300px;
+          @include medium(){
+            width: auto;
+            flex-wrap: wrap;
+          }
         }
         i{
           color: $icon-color;
@@ -431,6 +566,9 @@
     
     .ingredient-btn{
       text-align: center;
+      @include medium(){
+        padding-top: 20px;
+      }
 
       .add-to-shopping{
         padding: 0 10px;
@@ -444,6 +582,9 @@
         font-family: $title-font;
         color: $font-color;
         cursor: pointer;
+        @include small(){
+          font-size: 15px;
+        }
   
         &:hover{
           transform: scale(1.05);
@@ -456,16 +597,21 @@
 //shopping list styling
 .box-3{
   display: grid;
-  grid-template-areas: 'h'
-                       'i'
-                       'j';
-  grid-template-rows: 100px 450px 175px;
-  padding: 10px;
+  grid-template-rows: 100px 625px 175px;
+
+  @include medium(){
+    grid-area: list;
+    grid-template-rows: none;
+    grid-template-columns: 400px auto;
+    width: 100%;
+  }
 
   .shop-title{
-    grid-area: h;
     text-align: center;
     padding: 25px 0;
+    @include medium(){
+      display: none;
+    }
 
     span{
       background-color: $icon-color;
@@ -475,14 +621,18 @@
   }
 
   .shop{
-    grid-area: i;
+    height: 100%;
+    padding: 0 10px;
 
     ul{
       list-style-type: none;
       display: flex;
       flex-wrap: wrap;
-      height: 450px;
       overflow: auto;
+      @include medium(){
+        height: 450px;
+        overflow: auto;
+      }
 
       .shop-item{
         font-size: 15px;
@@ -553,9 +703,11 @@
   }
 
   .shop-btn{
-    grid-area: j;
     margin: auto;
     text-align: center;
+    @include medium(){
+      padding: 0 20px;
+    }
 
     h4{
       font-size: 25px;
@@ -575,8 +727,12 @@
       background: $icon-color;
       font-family: $title-font;
       color: $font-color;
+      outline: none;
       cursor: pointer;
       @include ease();
+      @include small(){
+        font-size: 15px;
+      }
     
       &:hover{
         transform: scale(1.05);
@@ -590,6 +746,7 @@
   }
 }
 
+//Footer styling
 .footer{
   grid-area: c;
   background: $header-footer-color;
@@ -598,4 +755,5 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  z-index: 9;
 }
