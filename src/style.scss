@@ -78,9 +78,15 @@
                          "b b"
                          "c c";
       grid-template-rows: 175px 900px 75px;
+      background: $gradient-color;
+      background-position: center;
+      background-attachment: fixed;
     }
     @include small(){
       padding: 0;
+      background: $gradient-color;
+      background-position: center;
+      background-attachment: fixed;
     }
   }
   
@@ -175,6 +181,9 @@
       visibility: hidden;
       opacity: 0;
       transition: all .5s .2s;
+      @include small(){
+        width: 24rem;
+      }
 
       .likes-link{
         text-decoration: none;

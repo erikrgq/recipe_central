@@ -22,7 +22,7 @@ const state = {};
 /**
  * Search Controller
  */
-/*const controlSearch = async () => {
+const controlSearch = async () => {
     //1. get query from the View
     const query = searchView.getInput(); 
 
@@ -48,7 +48,7 @@ const state = {};
             clearLoader();
         }
     }
-};*/
+};
 
 elements.searchForm.addEventListener('submit', e => {
     e.preventDefault();
@@ -58,7 +58,7 @@ elements.searchForm.addEventListener('submit', e => {
 /**
  * Recipe Controller
  */
-/*const controlRecipe = async () => {
+const controlRecipe = async () => {
     //retrieve ID from the url
     const id = window.location.hash.replace('#', '');
 
@@ -91,7 +91,7 @@ elements.searchForm.addEventListener('submit', e => {
             alert('Error processing the recipe');
         }
     }
-};*/
+};
 
 //window.addEventListener('hashchange', controlRecipe);
 //window.addEventListener('load', controlRecipe);
@@ -102,7 +102,7 @@ elements.searchForm.addEventListener('submit', e => {
 /**
  * List controller
  */
-/*const controlList = () => {
+const controlList = () => {
     //create a new list if there is none yet
     if(!state.list) state.list = new List();
 
@@ -115,7 +115,7 @@ elements.searchForm.addEventListener('submit', e => {
 
 
 //Handle delete and update list item events
-/*elements.shopping.addEventListener('click', e =>{
+elements.shopping.addEventListener('click', e =>{
     const id = e.target.closest('.shop-item').dataset.itemid;
 
     //handle the delete event
@@ -132,12 +132,12 @@ elements.searchForm.addEventListener('submit', e => {
         state.list.updateCount(id, val);
     }
 });
-*/
+
 
 /**
  * Likes controller
  */
-/*const controlLike = () => {
+const controlLike = () => {
     //create a likes object if not yet there
     if(!state.likes) state.likes = new Likes();
     
@@ -199,4 +199,4 @@ elements.recipe.addEventListener('click', e => {
         //call like controller
         controlLike();
     }
-});*/
+});
